@@ -1,0 +1,12 @@
+# example
+data_file: ../test/1389/testIPR # input file conatining data
+output_file: result.tab # output file name (tab format)
+column_to_group: 'GO_id' # column containing the gene ID (identifier for which you want annotation to be process)
+column_to_compare: 'IP_name' # column containing the text to compare (should be unique)
+list_column_to_filter: ['lrap'] # data will be filter by that column
+list_value_of_filter: [0.8] # data will be filter by this value in column list_column_to_filter
+how_to_compare: ['>='] # data will be compare using (>, >=, <, <=, =)
+list_column_to_keep: ['GO_id', 'lrap', 'IP_id', 'CPD_id', 'IP_name'] # column of the input data to keep in outpu file
+threshold_ratio: 70 # fuzzywuzzy ratio using Levenshtein distance to kepp (100 mean identical)
+
+

@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.5.3" />
+<title>function_comparaison API documentation</title>
+<meta name="description" content="This script compare annotation method results …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.name small{font-weight:normal}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title"><code>function_comparaison</code> module</h1>
+</header>
+<section id="section-intro">
+<p>This script compare annotation method results
+</p>
+<ul>
+<li>1: Removing stop word with nltk
+</li>
+<li>2: For each gene compare each annotation result and if ratio &gt; treeshold keep the best annotation</li>
+</ul>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python"># /usr/bin/python3
+
+&#34;&#34;&#34;
+This script compare annotation method results  
+
+* 1: Removing stop word with nltk  
+* 2: For each gene compare each annotation result and if ratio &gt; treeshold keep the best annotation  
+&#34;&#34;&#34;
+import argparse
+import yaml
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from fuzzywuzzy import fuzz
+import pandas as pd
+from nltk.tokenize import RegexpTokenizer
+import operator
+import Levenshtein # make fuzzy faster to use levenshtein than difflib
+
+def annotation_launch():
+    &#34;&#34;&#34; 
+    Main function of the script
+
+    &#34;&#34;&#34;
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#39;-yaml&#39;, help=&#34;yaml containing all needed parameter&#34;, required=True)
+    args = parser.parse_args()
+    yaml_file = args.yaml
+    try:
+        stream = open(yaml_file, &#39;r&#39;)
+    except OSError as e:
+        raise(&#39;cannot open yaml file&#39;)
+
+    # extract all data from yaml parameter file
+    df_all_data, output_file, column_to_compare, list_column_to_filter, \
+    list_value_of_filter, how_to_compare, list_column_to_keep, threshold_ratio, \
+    column_to_group = clean_args_data(stream)    
+
+    # clean column_to_compare before the comparaison and filter the data
+    df_clean_filter, df_filter = clean_data(\
+        df_all_data, list_column_to_keep, column_to_compare,\
+        list_column_to_filter, list_value_of_filter, how_to_compare)
+
+    # compare text of column_to_compare
+    dict_annot_cpd = compare_annotation(df_clean_filter, \
+    threshold_ratio, column_to_group, column_to_compare, list_column_to_filter)
+
+
+    print(df_clean_filter)
+
+def clean_args_data(stream):
+    &#34;&#34;&#34; 
+    Read yaml file to extract arguments to use  
+    Open data_file and extract data into a panda dataframe  
+
+    :type stream: file (from yaml)  
+    :param stream: parameter file  
+
+    &#34;&#34;&#34;
+    # read yaml file
+    try:
+        data = yaml.load(stream)
+    except:
+        raise(&#39;yaml file format is not valid&#39;)
+    data_file_path = data[&#39;data_file&#39;]
+    # read data file put the data in data_frame
+    try:
+        data_file = open(data_file_path, &#39;r&#39;)
+        df_all_data = pd.read_csv(data_file, sep=&#39;\t&#39;, header=0, dtype=&#39;str&#39;)
+    except OSError as e:
+        msg = &#39;cannot open data_file: &#39; + str(data_file)
+        raise(msg)
+    data_file.close()
+
+    output_file = data[&#39;output_file&#39;]
+    column_to_group = data[&#39;column_to_group&#39;]
+    column_to_compare = data[&#39;column_to_compare&#39;]
+    list_column_to_filter = data[&#39;list_column_to_filter&#39;]
+    list_value_of_filter = data[&#39;list_value_of_filter&#39;]
+    how_to_compare = data[&#39;how_to_compare&#39;]
+    list_column_to_keep = data[&#39;list_column_to_keep&#39;]
+    threshold_ratio = data[&#39;threshold_ratio&#39;]
+
+    return df_all_data, output_file, column_to_compare, list_column_to_filter, \
+        list_value_of_filter, how_to_compare, list_column_to_keep, threshold_ratio, \
+        column_to_group
+
+def make_comparaison(comparator, data_value, filter_value):
+    &#34;&#34;&#34;
+    make filter comparaison to choose if the data must be keeped or not  
+
+    :type comparator: string  
+    :param comparator: how_to_compare[]  
+
+    :type data_value: float  
+    :param data_value:   
+
+    :type filter_value: float  
+    :param filter_value: list_value_of_filter[]  
+
+    &#34;&#34;&#34;
+    is_valid = False
+
+    if comparator==&#39;&gt;=&#39;:
+        if data_value &gt;= filter_value:
+            is_valid = True
+    elif comparator==&#39;&gt;&#39;:
+        if data_value &gt; filter_value:
+            is_valid = True
+    elif comparator==&#39;&lt;=&#39;:
+        if data_value &lt;= filter_value:
+            is_valid = True
+    elif comparator==&#39;&lt;&#39;:
+        if data_value &lt; filter_value:
+            is_valid = True
+    elif comparator==&#39;=&#39;:
+        if data_value &gt;= filter_value:
+            is_valid = True
+    return is_valid
+    
+def clean_data(df, list_column_to_keep, column_to_compare, list_column_to_filter, list_value_of_filter, how_to_compare):
+    &#34;&#34;&#34;
+    Return two DataFrame with only the column to keep that pass the filter values  
+    The punctuation and stop world will be removed from the column to compare  
+
+    :param df: DataFrame to clean  
+    :type df: DataFrame  
+    :param list_column_to_keep: list of column name to keep  
+    :type list_column_to_keep: list [&#39;str&#39;]  
+    :param column_to_compare: column name to clean  
+    :type column_to_compare: str  
+    :param list_column_to_filter: list of column name to filter  
+    :type list_column_to_filter: list [&#39;str&#39;]  
+    :param list_value_of_filter: list of filter values treeshold data &gt;= values  
+    :type list_value_of_filter: list [&#39;float&#39;]  
+    :param how_to_compare: (&gt;, &gt;=, &lt;, &lt;=, =)  
+    :type how_to_compare: list [&#39;&#39;]  
+    &#34;&#34;&#34;
+
+    # Remove NULL values
+    df = df.dropna(subset=list_column_to_keep)
+    # reset row index
+    df.reset_index(inplace=True)
+
+    # create dataframe with only considered column
+    new_df = pd.DataFrame()
+    df_filter = pd.DataFrame()
+    df_clean_filter = pd.DataFrame()
+
+    for i in range(0, len(list_column_to_keep)):
+        col = list_column_to_keep[i]
+        new_df.insert(i, col, df[col], True)
+        df_clean_filter[col] = &#34;&#34;
+        df_filter[col] = &#34;&#34;
+
+    # list of stop world
+    stop_words = set(stopwords.words(&#39;english&#39;))
+    # ponctuation
+    tokenizer = RegexpTokenizer(r&#39;\w+&#39;)
+
+    count = 0
+    # enum on dataframe
+    for i, row in new_df.iterrows():
+        new_desc = &#39;&#39;
+        result = []
+        is_valid = True
+        # make filter using list_column_to_filter 
+        if list_column_to_filter != []:
+            for j in range(0, len(list_column_to_filter)):
+                data_value = float(row[list_column_to_filter[j]])
+                filter_value = float(list_value_of_filter[j])
+                comparator = how_to_compare[j]
+                is_valid = make_comparaison(comparator, data_value, filter_value)
+        # data value pass the given filter requirement 
+        if is_valid:
+            # fill df filtrer with column_to_compare data
+            df_filter = df_filter.append(row)
+            count += 1
+            # select stop word + ponctuation of column_to_compare
+            word_tokens = word_tokenize(row[column_to_compare])
+            for word in word_tokens:
+                # keep only meaning word
+                if not word in stop_words:
+                    new_desc += word + &#39; &#39;
+            # remove ponctuation
+            result = tokenizer.tokenize(new_desc)
+            # put the clean column_to_compare in df
+            row[column_to_compare] = &#39;&#39;
+            for element in result:
+                row[column_to_compare] += element + &#39; &#39;
+            # remplis le df clean_filtrer avec column_to_compare nettoye
+            df_clean_filter = df_clean_filter.append(row)
+
+    # both index must be the same
+    # df_clean_filter will be use to make fuzzy comparaison
+    # df_filter will be use to make the ouptpu file
+    df_filter.reset_index(inplace=True, drop=True)
+    df_clean_filter.reset_index(inplace=True, drop=True)
+    return df_clean_filter, df_filter
+
+
+def compare_annotation(df, threshold_ratio, column_to_group, column_to_compare, list_column_to_filter): 
+    # TODO prendre result avec + de hit &gt; ratio et pas le meilleur ratio
+    # TODO use list_column_to_filter to choos better result
+    &#34;&#34;&#34; 
+    For each gene compare each annotation result and if ratio &gt; treeshold keep the best annotation  
+
+    :type df: 
+    :param df:
+
+    :type threshold_ratio:
+    :param threshold_ratio:
+
+    :type column_to_group:
+    :param column_to_group: 
+
+    :type column_to_compare:
+    :param column_to_compare: 
+
+    :type list_column_to_filter:
+    :param list_column_to_filter:     
+    &#34;&#34;&#34;
+
+
+    dict_annot_cpd = {}
+    for i, row in df.iterrows():
+        current_GO_id = row[column_to_group]
+        # On fait des sous groupe de resultat pour le meme GO_id
+        subgroup = df.loc[df[column_to_group] == current_GO_id]
+        # si le Go_id a plusieurs resultat est n&#39;a pas deja ete traite
+        if len(subgroup) &gt; 1 and current_GO_id not in dict_annot_cpd.keys():
+            dict_annot_cpd[current_GO_id] = &#34;&#34;
+            dict_tmp_annot = {}
+            # calcul l&#39;index sur dataframe du sous groupe de resultat sur le meme gene
+            max_index = i+len(subgroup)-1
+            # on itere sur les resulats pour le meme GO_id
+            for j, el in subgroup.iterrows():
+                list_distance = []
+                list_df_index = []
+                if max_index &gt; j:
+                    # Pour chaque resultat, on le compare au autre si pas deja fait
+                    # le dernier a deja ete comparer au autre
+                    k = j
+                    max_index = i+len(subgroup)-1
+                    for k in range(j, max_index):
+                        k += 1
+                        # j / k correspond a l&#39;index dans la dataframe du resultat en train d&#39;etre compare
+                        field1 = df.loc[j, column_to_compare]
+                        field2 = df.loc[k, column_to_compare]
+                        # il faut conserver les index pour retrouver les resultat plus tard
+                        list_df_index.append([j, k])
+                        ratio = fuzz.token_set_ratio(field1, field2)
+                        print(str(j) + &#39;-&#39; + str(k))
+                        print(ratio)
+                        # list_distance.append(&#39;toto&#39;)
+                        list_distance.append(ratio)
+                        k += 1
+                    # on conserve le meilleur ratio entre les IP_name
+                    index_max_ratio = list_distance.index(max(list_distance))
+                    # on stocke pour pouvoir ensuite choisir le meilleur pour le GO_id
+                    dict_tmp_annot[j] = [
+                        list_df_index[index_max_ratio], list_distance[index_max_ratio]]
+            # trouver la meilleur assocation de resultat pour un gene
+            max_val = 0
+            # for key, value in d.iteritems(): # python 2
+            for key, value in dict_tmp_annot.items():  # python 3
+                new_val = int(value[1])
+                if new_val &gt; max_val:
+                    max_val = new_val
+                    max_val_key = key
+            # choisir laquel des deux annotation on prend
+            # on prend le hit parmis les deux restant qui a les meilleure metrique
+            # si ex-eaquo, le premier au hasard ?
+            if max_val &gt; 70:
+                index_hit_1 = dict_tmp_annot[max_val_key][0][0]
+                index_hit_2 = dict_tmp_annot[max_val_key][0][1]
+                metric_1 = df.loc[index_hit_1, &#39;lrap&#39;]
+                metric_2 = df.loc[index_hit_2, &#39;lrap&#39;]
+                if float(metric_1) &gt;= float(metric_2):
+                    dict_annot_cpd[current_GO_id] = [index_hit_1, max_val]
+                elif float(metric_1) &lt; float(metric_2):
+                    dict_annot_cpd[current_GO_id] = [index_hit_2, max_val]
+            else:
+                dict_annot_cpd.pop(current_GO_id, None)
+    return dict_annot_cpd
+
+
+def make_annotation(df_filter, dict_annot_cpd, list_column_to_report):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+    list_annotation_final = []
+    # for key, value in dict_annot_cpd.iteritems(): # python 2
+    for key, value in dict_annot_cpd.items():  # python 3
+        list_annotation_tmp = []
+        list_annotation_tmp.append(key)
+        for column_to_use in list_column_to_report:
+            list_annotation_tmp.append(
+                df_filter.loc[int(value[0])][column_to_use])
+        list_annotation_tmp.append(str(value[1]))
+        list_annotation_final.append(list_annotation_tmp)
+
+    return list_annotation_final
+
+
+def write_db_file(list_annotation_final, output_name):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+
+    with open(output_name, &#39;w&#39;) as f:
+        for el in list_annotation_final:
+            f.write(&#39;\t&#39;.join(el) + &#39;\n&#39;)
+
+
+if __name__ == &#34;__main__&#34;:
+
+    annotation_launch()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="function_comparaison.annotation_launch"><code class="name flex">
+<span>def <span class="ident">annotation_launch</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Main function of the script</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def annotation_launch():
+    &#34;&#34;&#34; 
+    Main function of the script
+
+    &#34;&#34;&#34;
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#39;-yaml&#39;, help=&#34;yaml containing all needed parameter&#34;, required=True)
+    args = parser.parse_args()
+    yaml_file = args.yaml
+    try:
+        stream = open(yaml_file, &#39;r&#39;)
+    except OSError as e:
+        raise(&#39;cannot open yaml file&#39;)
+
+    # extract all data from yaml parameter file
+    df_all_data, output_file, column_to_compare, list_column_to_filter, \
+    list_value_of_filter, how_to_compare, list_column_to_keep, threshold_ratio, \
+    column_to_group = clean_args_data(stream)    
+
+    # clean column_to_compare before the comparaison and filter the data
+    df_clean_filter, df_filter = clean_data(\
+        df_all_data, list_column_to_keep, column_to_compare,\
+        list_column_to_filter, list_value_of_filter, how_to_compare)
+
+    # compare text of column_to_compare
+    dict_annot_cpd = compare_annotation(df_clean_filter, \
+    threshold_ratio, column_to_group, column_to_compare, list_column_to_filter)
+
+
+    print(df_clean_filter)</code></pre>
+</details>
+</dd>
+<dt id="function_comparaison.clean_args_data"><code class="name flex">
+<span>def <span class="ident">clean_args_data</span></span>(<span>stream)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Read yaml file to extract arguments to use<br>
+Open data_file and extract data into a panda dataframe
+</p>
+<p>:type stream: file (from yaml)<br>
+:param stream: parameter file</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def clean_args_data(stream):
+    &#34;&#34;&#34; 
+    Read yaml file to extract arguments to use  
+    Open data_file and extract data into a panda dataframe  
+
+    :type stream: file (from yaml)  
+    :param stream: parameter file  
+
+    &#34;&#34;&#34;
+    # read yaml file
+    try:
+        data = yaml.load(stream)
+    except:
+        raise(&#39;yaml file format is not valid&#39;)
+    data_file_path = data[&#39;data_file&#39;]
+    # read data file put the data in data_frame
+    try:
+        data_file = open(data_file_path, &#39;r&#39;)
+        df_all_data = pd.read_csv(data_file, sep=&#39;\t&#39;, header=0, dtype=&#39;str&#39;)
+    except OSError as e:
+        msg = &#39;cannot open data_file: &#39; + str(data_file)
+        raise(msg)
+    data_file.close()
+
+    output_file = data[&#39;output_file&#39;]
+    column_to_group = data[&#39;column_to_group&#39;]
+    column_to_compare = data[&#39;column_to_compare&#39;]
+    list_column_to_filter = data[&#39;list_column_to_filter&#39;]
+    list_value_of_filter = data[&#39;list_value_of_filter&#39;]
+    how_to_compare = data[&#39;how_to_compare&#39;]
+    list_column_to_keep = data[&#39;list_column_to_keep&#39;]
+    threshold_ratio = data[&#39;threshold_ratio&#39;]
+
+    return df_all_data, output_file, column_to_compare, list_column_to_filter, \
+        list_value_of_filter, how_to_compare, list_column_to_keep, threshold_ratio, \
+        column_to_group</code></pre>
+</details>
+</dd>
+<dt id="function_comparaison.clean_data"><code class="name flex">
+<span>def <span class="ident">clean_data</span></span>(<span>df, list_column_to_keep, column_to_compare, list_column_to_filter, list_value_of_filter, how_to_compare)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return two DataFrame with only the column to keep that pass the filter values<br>
+The punctuation and stop world will be removed from the column to compare
+</p>
+<p>:param df: DataFrame to clean<br>
+:type df: DataFrame<br>
+:param list_column_to_keep: list of column name to keep<br>
+:type list_column_to_keep: list ['str']<br>
+:param column_to_compare: column name to clean<br>
+:type column_to_compare: str<br>
+:param list_column_to_filter: list of column name to filter<br>
+:type list_column_to_filter: list ['str']<br>
+:param list_value_of_filter: list of filter values treeshold data &gt;= values<br>
+:type list_value_of_filter: list ['float']<br>
+:param how_to_compare: (&gt;, &gt;=, &lt;, &lt;=, =)<br>
+:type how_to_compare: list ['']</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def clean_data(df, list_column_to_keep, column_to_compare, list_column_to_filter, list_value_of_filter, how_to_compare):
+    &#34;&#34;&#34;
+    Return two DataFrame with only the column to keep that pass the filter values  
+    The punctuation and stop world will be removed from the column to compare  
+
+    :param df: DataFrame to clean  
+    :type df: DataFrame  
+    :param list_column_to_keep: list of column name to keep  
+    :type list_column_to_keep: list [&#39;str&#39;]  
+    :param column_to_compare: column name to clean  
+    :type column_to_compare: str  
+    :param list_column_to_filter: list of column name to filter  
+    :type list_column_to_filter: list [&#39;str&#39;]  
+    :param list_value_of_filter: list of filter values treeshold data &gt;= values  
+    :type list_value_of_filter: list [&#39;float&#39;]  
+    :param how_to_compare: (&gt;, &gt;=, &lt;, &lt;=, =)  
+    :type how_to_compare: list [&#39;&#39;]  
+    &#34;&#34;&#34;
+
+    # Remove NULL values
+    df = df.dropna(subset=list_column_to_keep)
+    # reset row index
+    df.reset_index(inplace=True)
+
+    # create dataframe with only considered column
+    new_df = pd.DataFrame()
+    df_filter = pd.DataFrame()
+    df_clean_filter = pd.DataFrame()
+
+    for i in range(0, len(list_column_to_keep)):
+        col = list_column_to_keep[i]
+        new_df.insert(i, col, df[col], True)
+        df_clean_filter[col] = &#34;&#34;
+        df_filter[col] = &#34;&#34;
+
+    # list of stop world
+    stop_words = set(stopwords.words(&#39;english&#39;))
+    # ponctuation
+    tokenizer = RegexpTokenizer(r&#39;\w+&#39;)
+
+    count = 0
+    # enum on dataframe
+    for i, row in new_df.iterrows():
+        new_desc = &#39;&#39;
+        result = []
+        is_valid = True
+        # make filter using list_column_to_filter 
+        if list_column_to_filter != []:
+            for j in range(0, len(list_column_to_filter)):
+                data_value = float(row[list_column_to_filter[j]])
+                filter_value = float(list_value_of_filter[j])
+                comparator = how_to_compare[j]
+                is_valid = make_comparaison(comparator, data_value, filter_value)
+        # data value pass the given filter requirement 
+        if is_valid:
+            # fill df filtrer with column_to_compare data
+            df_filter = df_filter.append(row)
+            count += 1
+            # select stop word + ponctuation of column_to_compare
+            word_tokens = word_tokenize(row[column_to_compare])
+            for word in word_tokens:
+                # keep only meaning word
+                if not word in stop_words:
+                    new_desc += word + &#39; &#39;
+            # remove ponctuation
+            result = tokenizer.tokenize(new_desc)
+            # put the clean column_to_compare in df
+            row[column_to_compare] = &#39;&#39;
+            for element in result:
+                row[column_to_compare] += element + &#39; &#39;
+            # remplis le df clean_filtrer avec column_to_compare nettoye
+            df_clean_filter = df_clean_filter.append(row)
+
+    # both index must be the same
+    # df_clean_filter will be use to make fuzzy comparaison
+    # df_filter will be use to make the ouptpu file
+    df_filter.reset_index(inplace=True, drop=True)
+    df_clean_filter.reset_index(inplace=True, drop=True)
+    return df_clean_filter, df_filter</code></pre>
+</details>
+</dd>
+<dt id="function_comparaison.compare_annotation"><code class="name flex">
+<span>def <span class="ident">compare_annotation</span></span>(<span>df, threshold_ratio, column_to_group, column_to_compare, list_column_to_filter)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>For each gene compare each annotation result and if ratio &gt; treeshold keep the best annotation
+</p>
+<p>:type df:
+:param df:</p>
+<p>:type threshold_ratio:
+:param threshold_ratio:</p>
+<p>:type column_to_group:
+:param column_to_group: </p>
+<p>:type column_to_compare:
+:param column_to_compare: </p>
+<p>:type list_column_to_filter:
+:param list_column_to_filter:</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def compare_annotation(df, threshold_ratio, column_to_group, column_to_compare, list_column_to_filter): 
+    # TODO prendre result avec + de hit &gt; ratio et pas le meilleur ratio
+    # TODO use list_column_to_filter to choos better result
+    &#34;&#34;&#34; 
+    For each gene compare each annotation result and if ratio &gt; treeshold keep the best annotation  
+
+    :type df: 
+    :param df:
+
+    :type threshold_ratio:
+    :param threshold_ratio:
+
+    :type column_to_group:
+    :param column_to_group: 
+
+    :type column_to_compare:
+    :param column_to_compare: 
+
+    :type list_column_to_filter:
+    :param list_column_to_filter:     
+    &#34;&#34;&#34;
+
+
+    dict_annot_cpd = {}
+    for i, row in df.iterrows():
+        current_GO_id = row[column_to_group]
+        # On fait des sous groupe de resultat pour le meme GO_id
+        subgroup = df.loc[df[column_to_group] == current_GO_id]
+        # si le Go_id a plusieurs resultat est n&#39;a pas deja ete traite
+        if len(subgroup) &gt; 1 and current_GO_id not in dict_annot_cpd.keys():
+            dict_annot_cpd[current_GO_id] = &#34;&#34;
+            dict_tmp_annot = {}
+            # calcul l&#39;index sur dataframe du sous groupe de resultat sur le meme gene
+            max_index = i+len(subgroup)-1
+            # on itere sur les resulats pour le meme GO_id
+            for j, el in subgroup.iterrows():
+                list_distance = []
+                list_df_index = []
+                if max_index &gt; j:
+                    # Pour chaque resultat, on le compare au autre si pas deja fait
+                    # le dernier a deja ete comparer au autre
+                    k = j
+                    max_index = i+len(subgroup)-1
+                    for k in range(j, max_index):
+                        k += 1
+                        # j / k correspond a l&#39;index dans la dataframe du resultat en train d&#39;etre compare
+                        field1 = df.loc[j, column_to_compare]
+                        field2 = df.loc[k, column_to_compare]
+                        # il faut conserver les index pour retrouver les resultat plus tard
+                        list_df_index.append([j, k])
+                        ratio = fuzz.token_set_ratio(field1, field2)
+                        print(str(j) + &#39;-&#39; + str(k))
+                        print(ratio)
+                        # list_distance.append(&#39;toto&#39;)
+                        list_distance.append(ratio)
+                        k += 1
+                    # on conserve le meilleur ratio entre les IP_name
+                    index_max_ratio = list_distance.index(max(list_distance))
+                    # on stocke pour pouvoir ensuite choisir le meilleur pour le GO_id
+                    dict_tmp_annot[j] = [
+                        list_df_index[index_max_ratio], list_distance[index_max_ratio]]
+            # trouver la meilleur assocation de resultat pour un gene
+            max_val = 0
+            # for key, value in d.iteritems(): # python 2
+            for key, value in dict_tmp_annot.items():  # python 3
+                new_val = int(value[1])
+                if new_val &gt; max_val:
+                    max_val = new_val
+                    max_val_key = key
+            # choisir laquel des deux annotation on prend
+            # on prend le hit parmis les deux restant qui a les meilleure metrique
+            # si ex-eaquo, le premier au hasard ?
+            if max_val &gt; 70:
+                index_hit_1 = dict_tmp_annot[max_val_key][0][0]
+                index_hit_2 = dict_tmp_annot[max_val_key][0][1]
+                metric_1 = df.loc[index_hit_1, &#39;lrap&#39;]
+                metric_2 = df.loc[index_hit_2, &#39;lrap&#39;]
+                if float(metric_1) &gt;= float(metric_2):
+                    dict_annot_cpd[current_GO_id] = [index_hit_1, max_val]
+                elif float(metric_1) &lt; float(metric_2):
+                    dict_annot_cpd[current_GO_id] = [index_hit_2, max_val]
+            else:
+                dict_annot_cpd.pop(current_GO_id, None)
+    return dict_annot_cpd</code></pre>
+</details>
+</dd>
+<dt id="function_comparaison.make_annotation"><code class="name flex">
+<span>def <span class="ident">make_annotation</span></span>(<span>df_filter, dict_annot_cpd, list_column_to_report)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def make_annotation(df_filter, dict_annot_cpd, list_column_to_report):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+    list_annotation_final = []
+    # for key, value in dict_annot_cpd.iteritems(): # python 2
+    for key, value in dict_annot_cpd.items():  # python 3
+        list_annotation_tmp = []
+        list_annotation_tmp.append(key)
+        for column_to_use in list_column_to_report:
+            list_annotation_tmp.append(
+                df_filter.loc[int(value[0])][column_to_use])
+        list_annotation_tmp.append(str(value[1]))
+        list_annotation_final.append(list_annotation_tmp)
+
+    return list_annotation_final</code></pre>
+</details>
+</dd>
+<dt id="function_comparaison.make_comparaison"><code class="name flex">
+<span>def <span class="ident">make_comparaison</span></span>(<span>comparator, data_value, filter_value)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>make filter comparaison to choose if the data must be keeped or not
+</p>
+<p>:type comparator: string<br>
+:param comparator: how_to_compare[]
+</p>
+<p>:type data_value: float<br>
+:param data_value:
+</p>
+<p>:type filter_value: float<br>
+:param filter_value: list_value_of_filter[]</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def make_comparaison(comparator, data_value, filter_value):
+    &#34;&#34;&#34;
+    make filter comparaison to choose if the data must be keeped or not  
+
+    :type comparator: string  
+    :param comparator: how_to_compare[]  
+
+    :type data_value: float  
+    :param data_value:   
+
+    :type filter_value: float  
+    :param filter_value: list_value_of_filter[]  
+
+    &#34;&#34;&#34;
+    is_valid = False
+
+    if comparator==&#39;&gt;=&#39;:
+        if data_value &gt;= filter_value:
+            is_valid = True
+    elif comparator==&#39;&gt;&#39;:
+        if data_value &gt; filter_value:
+            is_valid = True
+    elif comparator==&#39;&lt;=&#39;:
+        if data_value &lt;= filter_value:
+            is_valid = True
+    elif comparator==&#39;&lt;&#39;:
+        if data_value &lt; filter_value:
+            is_valid = True
+    elif comparator==&#39;=&#39;:
+        if data_value &gt;= filter_value:
+            is_valid = True
+    return is_valid</code></pre>
+</details>
+</dd>
+<dt id="function_comparaison.write_db_file"><code class="name flex">
+<span>def <span class="ident">write_db_file</span></span>(<span>list_annotation_final, output_name)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def write_db_file(list_annotation_final, output_name):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+
+    with open(output_name, &#39;w&#39;) as f:
+        for el in list_annotation_final:
+            f.write(&#39;\t&#39;.join(el) + &#39;\n&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="function_comparaison.annotation_launch" href="#function_comparaison.annotation_launch">annotation_launch</a></code></li>
+<li><code><a title="function_comparaison.clean_args_data" href="#function_comparaison.clean_args_data">clean_args_data</a></code></li>
+<li><code><a title="function_comparaison.clean_data" href="#function_comparaison.clean_data">clean_data</a></code></li>
+<li><code><a title="function_comparaison.compare_annotation" href="#function_comparaison.compare_annotation">compare_annotation</a></code></li>
+<li><code><a title="function_comparaison.make_annotation" href="#function_comparaison.make_annotation">make_annotation</a></code></li>
+<li><code><a title="function_comparaison.make_comparaison" href="#function_comparaison.make_comparaison">make_comparaison</a></code></li>
+<li><code><a title="function_comparaison.write_db_file" href="#function_comparaison.write_db_file">write_db_file</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.5.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
